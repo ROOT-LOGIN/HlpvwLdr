@@ -1,0 +1,90 @@
+﻿<Window x:Class="HlpvwFake.ManageUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HlpvwFake"
+             xmlns:fu="clr-namespace:ZHLX.FlatUI;assembly=ZHLX.FlatUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" MaxWidth="300" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0" x:Name="dirtree" Padding="0" Width="300">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                        <Setter Property="IsExpanded" Value="True" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                        <Label HorizontalAlignment="Stretch">
+                            <Grid >
+                                <TextBlock Text="{Binding Name}" ToolTip="{Binding Path}" FontSize="14" />
+                            </Grid>
+                        </Label>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4" Background="Silver" />
+            <Grid Grid.Column="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+
+                <DataGrid Grid.Row="0" x:Name="filelst" AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="60">
+                            <DataGridTemplateColumn.Header>
+                                <Border HorizontalAlignment="Stretch">
+                                    <fu:FlatCheckBox Margin="4,0" HorizontalAlignment="Center" IsThreeState="False" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Content="" Background="Transparent" />
+                                </Border>
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border HorizontalAlignment="Stretch">
+                                        <fu:FlatCheckBox Margin="4,0" IsChecked="{Binding ISCHECKED, Mode=TwoWay}" HorizontalAlignment="Left" Background="Transparent" />
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>                                
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding NAME}" Width="200" IsReadOnly="True" />
+                        <DataGridTextColumn Header="File" Binding="{Binding FILE}" Width="200" IsReadOnly="True" />
+                        <DataGridTextColumn Header="Path" Binding="{Binding PATH}" Width="300" IsReadOnly="True" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <GridSplitter Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="4" Background="Silver" />
+                <WebBrowser x:Name="browser" Grid.Row="2" />
+            </Grid>
+        </Grid>
+        <DockPanel Background="#F0F0F0" Grid.Row="1">
+            <Rectangle DockPanel.Dock="Top" Height="1" Fill="Black" />
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" >
+                <fu:FlatButton x:Name="build" Content="Build" Width="60" Height="30" Margin="8,0" Click="Button_Click" />
+                <fu:FlatButton x:Name="exit" Content="Exit" Width="60" Height="30" Margin="8,0" Click="Button_Click" Type="ghost" />
+            </StackPanel>
+            <DockPanel DockPanel.Dock="Left">
+                <TextBlock DockPanel.Dock="Left" Text="Location: " VerticalAlignment="Center" Foreground="#004080" FontWeight="Bold" />
+                <Border DockPanel.Dock="Left" Height="28" >
+                    <DockPanel>
+                        <fu:FlatButton x:Name="dir" Content="Browser" DockPanel.Dock="Right" BorderThickness="0,1,1,1" BorderBrush="DodgerBlue" Click="Button_Click" Type="info" CornerRadius="0" />
+                        <TextBox x:Name="location" BorderThickness="1,1,0,1" BorderBrush="DodgerBlue" DockPanel.Dock="Left" VerticalContentAlignment="Center" />
+                    </DockPanel>
+                </Border>
+            </DockPanel>
+
+        </DockPanel>
+    </Grid>
+</Window>

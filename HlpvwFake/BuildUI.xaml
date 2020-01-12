@@ -1,0 +1,79 @@
+﻿<Window x:Class="HlpvwFake.BuildUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HlpvwFake"
+             xmlns:fu="clr-namespace:ZHLX.FlatUI;assembly=ZHLX.FlatUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="310" MaxWidth="310" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <fu:FlatCheckBox x:Name="chk" Margin="2,2,8,2" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" />
+                    <fu:FlatButton Type="ghost" x:Name="top" Content="Top" Height="22" Margin="2" Width="50" Click="Button_Click" />
+                    <fu:FlatButton Type="ghost" x:Name="up1" Content="Up 1" Height="22" Margin="2" Width="50" Click="Button_Click" />
+                    <fu:FlatButton Type="ghost" x:Name="dw1" Content="Down 1" Height="22" Margin="2" Width="50" Click="Button_Click" />
+                    <fu:FlatButton Type="ghost" x:Name="btm" Content="Bottom" Height="22" Margin="2" Width="50" Click="Button_Click" />
+                    <fu:FlatButton Type="ghost" x:Name="sav" Content="Save" Height="22" Margin="8,2,0,2" Width="50" FontWeight="Bold" Click="Button_Click" />
+                </StackPanel>
+                <Border DockPanel.Dock="Bottom" Background="#F7F7F7">
+                    <TextBlock x:Name="chktip" Text="0 of 1 Items Checked" FontSize="13" Foreground="Gray" Margin="2" />
+                </Border>
+                <ListBox DockPanel.Dock="Top" x:Name="filelstbox">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <EventSetter Event="MouseDoubleClick" Handler="Filelstbox_MouseDoubleClick" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Label HorizontalAlignment="Stretch">
+                                <DockPanel>
+                                    <Border DockPanel.Dock="Left" Padding="2">
+                                        <fu:FlatCheckBox IsThreeState="False" IsChecked="{Binding ISCHECKED, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Background="Transparent" />
+                                    </Border>
+                                    <StackPanel DockPanel.Dock="Left" ToolTip="{Binding PATH}">
+                                        <TextBlock Text="{Binding NAME}" Margin="1" FontSize="16" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding FILE}" TextWrapping="Wrap" Margin="1" />
+                                    </StackPanel>
+                                </DockPanel>
+                            </Label>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+            <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" Width="4" Background="Silver" />
+            <WebBrowser x:Name="browser" Grid.Column="2" />
+        </Grid>
+        <Grid Background="#F0F0F0" Grid.Row="1">
+            <Rectangle DockPanel.Dock="Top" Height="1" Fill="Black" VerticalAlignment="Top" />
+
+            <WrapPanel Visibility="Visible" Orientation="Horizontal" VerticalAlignment="Center">
+                <fu:FlatCheckBox x:Name="sFooter" IsThreeState="False" Content="Footer" Margin="4,0" Background="Transparent" FontSize="14" Foreground="Blue" FontWeight="Bold" />
+                <fu:FlatCheckBox x:Name="sAlso" IsThreeState="False" Content="See Also" Margin="4,0" Background="Transparent" FontSize="14" Foreground="Blue" FontWeight="Bold" />
+                <fu:FlatCheckBox x:Name="sRelated" IsThreeState="False" Content="Related" Margin="4,0" Background="Transparent" FontSize="14" Foreground="Blue" FontWeight="Bold" />
+
+                <fu:FlatCheckBox x:Name="pAuto" IsThreeState="False" Content="Auto Beautify" Margin="32,0" Background="Transparent" FontSize="14" Foreground="IndianRed" FontWeight="Bold" />
+            </WrapPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <fu:FlatButton x:Name="build1" Content="Gen Checked" Width="80" Height="30" Margin="8,0" Click="Button_Click" />
+                <fu:FlatButton x:Name="build2" Content="Gen Selected" Width="80" Height="30" Margin="8,0" Click="Button_Click" />
+
+                <fu:FlatButton x:Name="beautify" Content="Beautify" Width="60" Height="30" Margin="8,0" Click="Button_Click" Type="info" />
+
+                <fu:FlatButton x:Name="exit" Content="Exit" Width="60" Height="30" Margin="8,0" Click="Button_Click" Type="ghost" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
